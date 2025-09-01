@@ -22,3 +22,42 @@ https://github.com/user-attachments/assets/a6ebcc14-f419-4935-8e07-141c2a14d501
 - TypeScript
 - TailwindCSS
 - MySQL
+
+## データベース設計
+
+```mermaid
+erDiagram
+    monsters {
+        number monster_id pk "NOT NULL"
+        string name "NOT NULL"
+        string ranks "NOT NULL"
+        string status "NOT NULL"
+        string scout "NOT NULL"
+        string hiragana "NOT NULL"
+        number katakana "NOT NULL"
+        string romaji "NOT NULL"
+        string status_romaji "NOT NULL"
+        string egg
+        string other
+    }
+
+    combinations {
+        number combination_id pk "NOT NULL"
+        number monster_id fk "NOT NULL"
+        string information
+        boolean special_flag "NOT NULL"
+    }
+
+
+
+    combination_parent {
+        number combination_parent_id fk "NOT NULL"
+        number combination_id fk "NOT NULL"
+        number monster_id fk "NOT NULL"
+        string parent "NOT NULL"
+    }
+
+    monsters ||--|{ combinations : "has"
+    combinations ||--|{ combination_parent : "details"
+    monsters ||--|{ combination_parent : "is_parent_of"
+```
