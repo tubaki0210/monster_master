@@ -4,7 +4,7 @@ import Hand from './Hand'
 import Scout from './Scout'
 import Combination from './Combination'
 import ItemList from './ItemList'
-import { MonsterType, NewMonsterType } from '../type'
+import { NewMonsterType } from '../type'
 import useSWR from 'swr'
 
 
@@ -43,7 +43,7 @@ const Content = () => {
     const hand_filter: NewMonsterType[] = data.filter((item: NewMonsterType) =>
       item !== target
     )
-    let handmonsters: NewMonsterType[] = SetMonsters(hand_filter, ["D", "E", "F", "G"])
+    const handmonsters: NewMonsterType[] = SetMonsters(hand_filter, ["D", "E", "F", "G"])
     const scout_filter: NewMonsterType[] = data.filter((item: NewMonsterType) =>
       !handMonsters.includes(item)
     )

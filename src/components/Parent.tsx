@@ -1,10 +1,10 @@
-import { motion, AnimatePresence, number } from 'framer-motion'
+import { motion } from 'framer-motion'
 import React from 'react'
 import Monster from './Monster'
-import { MonsterType } from '../type'
+import { NewMonsterType } from '../type'
 
 interface Props {
-    parent : MonsterType,
+    parent : NewMonsterType,
     combination_flag : boolean
 }
 

@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from 'react'
 import { Close, Menu } from "@mui/icons-material"
 import Link from 'next/link'

@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { CombinationParentType, CombinationType, MonsterType, NewMonsterType } from '../type'
 import Monster from './Monster'
-import { motion, AnimatePresence, scale } from 'framer-motion'
+import { motion, AnimatePresence} from 'framer-motion'
 import Parent from './Parent'
-import { getCombination } from '@/utils/handlefirebase'
 
 interface Props {
   parent1: NewMonsterType | null,
@@ -28,7 +27,7 @@ const Combination = (props: Props) => {
   const [combination_flag, setCombinationFlag] = useState<boolean>(false);
 
   const handleCombination = (monster: NewMonsterType) => {
-    let new_hand = props.handMonsters.filter(item => ((item !== props.parent1) && (item !== props.parent2)))
+    const new_hand = props.handMonsters.filter(item => ((item !== props.parent1) && (item !== props.parent2)))
     monster.parent1 = props.parent1?.name
     monster.parent2 = props.parent2?.name
     new_hand.push(monster)
@@ -54,7 +53,7 @@ const Combination = (props: Props) => {
         // 配合先候補のモンスターのcombination_idを格納する
         const status_data : CombinationParentType[] = [...data.status_rows].sort(() => 0.5 - Math.random())
         // 配合先候補のcombination_idのリスト[1,2,3,4,...]
-        const cancat_data : Number[] = [...data.name_rows, ...status_data].map((item) => { return item.combination_id })
+        const cancat_data : number[] = [...data.name_rows, ...status_data].map((item) => { return item.combination_id })
         // 配合先候補のcombinationsテーブルのレコードを全て獲得
         const results = await fetch(`/api/combinations?combination_id=${cancat_data.join(',')}`);
         const result_data : CombinationType[] = await results.json()

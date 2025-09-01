@@ -1,8 +1,8 @@
 'use client'
-import React, { useEffect, useRef, useState } from 'react'
+import React, {  useRef, useState } from 'react'
 import Monster from './Monster'
 import { motion } from 'framer-motion'
-import { MonsterType, NewMonsterType } from '../type'
+import {  NewMonsterType } from '../type'
 
 interface Props {
   parent1 : NewMonsterType | null,
@@ -48,7 +48,7 @@ const Hand = ( props  : Props) => {
       <div className='border-3 border-blue-300 rounded-2xl relative px-2'>
         <span className='px-3 text-xl font-bold absolute -top-4 left-1/2 -translate-x-1/2 bg-sky-100'>手持ち</span>
         <ul className='mt-2 flex flex-col items-center'>
-          {props.handMonsters.map((monster, index) => (
+          {props.handMonsters.map((monster) => (
             <motion.li
             key={monster.monster_id}
             className='py-6'

@@ -1,19 +1,17 @@
 import { CombinationList, CombinationParentType, CombinationType } from '@/type';
-import { error } from 'console';
-import React from 'react'
+// import { error } from 'console';
+// import React from 'react'
 import useSWR from 'swr';
 
-interface Props {
-  monster_id : number
-}
-
-const useMonsterDetail = ( combination : CombinationType[] ) => {
+// interface Props {
+//   monster_id : number
+// }
+const useGetParentById = ( combination : CombinationType[] | undefined) => {
       const fetcher = (url: string) => fetch(url).then(res => res.json())
       const combination_idlist = (combination?.map((comb: CombinationType) => { return comb.combination_id }));
       // 配合IDリストに含まれるモンスターを配合親テーブルから取得
       const { data: combination_parent, error: combination_parent_error } = useSWR(
-          combination_idlist ? `/api/combination_parent?combination_id=${combination_idlist.join(',')}` : null,
-          fetcher);
+          combination_idlist ? `/api/combination_parent?combination_id=${combination_idlist.join(',')}` : null, fetcher);
       // 配合情報と配合親情報をコンビネーションIDでグルーピング
       const merged_combination : CombinationList[] | undefined = combination && combination_parent ?
       combination.map((item1: CombinationType) => {
@@ -27,9 +25,9 @@ const useMonsterDetail = ( combination : CombinationType[] ) => {
           }
       }) : undefined
       return {
-        combination_parent : merged_combination,
-        parent_error : combination_parent_error
+        combination_children : merged_combination,
+        comb_children_error : combination_parent_error
       }
 }
 
-export default useMonsterDetail
+export default useGetParentById

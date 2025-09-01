@@ -1,14 +1,14 @@
 'use client'
 
 import React from 'react'
-import { MonsterType, NewMonsterType } from '../type'
-import { motion } from 'framer-motion'
+import { NewMonsterType } from '../type'
+// import { motion } from 'framer-motion'
 
 interface MonsterProps {
-    monster:  NewMonsterType,
+    monster : NewMonsterType
 }
 
-const Monster = ({ monster }: MonsterProps) => {
+const Monster = ( { monster } :  MonsterProps) => {
     return (
         <div className='px-4 py-6 w-49 h-26  rounded-2xl flex flex-col items-center '>
             <div className='text-30 font-bold text-purple-600'>{monster.name}</div>
