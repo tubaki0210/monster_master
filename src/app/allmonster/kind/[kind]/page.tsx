@@ -5,7 +5,6 @@ import SearchBar from '@/components/SearchBar';
 import Sideber from '@/components/Sideber';
 import { getMonsters } from '@/lib/monster';
 import { NewMonsterType } from '@/type';
-import Link from 'next/link';
 import React from 'react';
 export async function generateStaticParams() {
   const monsterKinds = [
@@ -27,10 +26,7 @@ type KindPageProps = {
 
 const KindPage = async ({ params }: KindPageProps) => {
   const { kind } = await params;
-  // const match = { "slime" : "スライム系", "doragon" : "ドラゴン系", "akuma" : "悪魔系", "busitu" : "物質系", "zombi" : "ゾンビ系", "maju" : "魔獣系", "sizen"  : "自然系", "maou" : "魔王系"}
   const displayedMonsters = await getMonsters({ kind: kind });
-  // console.log(response)
-  // console.log(match[kind])
   return (
     <div className="container m-auto flex flex-col justify-center items-center mt-10 mb-10 ">
       <Sideber />
