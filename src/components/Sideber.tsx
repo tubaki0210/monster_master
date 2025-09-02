@@ -21,7 +21,7 @@ const Sideber = () => {
   ];
 
   return (
-    <div className="z-90">
+    <div className="z-20">
       <div
         className="absolute left-15 top-10 grid"
         onClick={() => setMenuFlag(false)}
