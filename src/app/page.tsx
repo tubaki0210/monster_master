@@ -1,7 +1,7 @@
 import Link from 'next/link';
 export default function Home() {
   return (
-    <div className="font-serif h-screen flex justify-between container items-center m-auto font-bold">
+    <div className="font-serif h-screen flex justify-between container items-center mx-auto font-bold py-10">
       <Link
         href="/allmonster"
         className="bg-amber-200 w-70 h-60 rounded-3xl text-3xl shadow-2xl"
