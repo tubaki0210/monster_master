@@ -1,31 +1,18 @@
 import CombinationItem from '@/components/CombinationItem';
 import Sideber from '@/components/Sideber';
-import { NewMonsterType } from '@/type';
 import React from 'react';
 import { getMonsters } from '@/lib/monster';
-import getCombination from '@/lib/combination';
-import getCombinationParent from '@/lib/combination_parent';
-import { combinationLogic } from '@/lib/combinationLogic';
 import ParentResult from '@/components/ParentResult';
 import MonsterTable from '@/components/MonsterTable';
+import { getMonseterCombParent } from '@/lib/MonsterCombParent';
 
 const getMonster = async (monster_id: string) => {
-  const monsters = await getMonsters({});
-  const combinations = await getCombination({});
-  const combinations_parent = await getCombinationParent({});
-  const target_monster = monsters.find(
-    (m: NewMonsterType) => String(m.monster_id) === monster_id
+  // ターゲットモンスター
+  const monster = await getMonsters({ monster_id: monster_id });
+  const target_monster = monster[0];
+  const { combination_result, parent_result } = await getMonseterCombParent(
+    target_monster
   );
-  if (!target_monster) {
-    return { monster: null, combination: [], parent: [] };
-  }
-  const { combination_result, parent_result } = combinationLogic({
-    target_monster: target_monster,
-    monsters: monsters,
-    combinations: combinations,
-    combinations_parent: combinations_parent,
-  });
-
   return {
     monster: target_monster,
     combination: combination_result,

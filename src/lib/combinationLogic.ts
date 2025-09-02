@@ -22,7 +22,6 @@ export const combinationLogic = ({
   const combination_parent_data = combinations_parent.filter((comb_parent) =>
     combination_id_list.includes(comb_parent.combination_id)
   );
-
   const merged = combination_data.map((item1) => {
     const parent_item = combination_parent_data.filter(
       (item) => item.combination_id === item1.combination_id
@@ -33,7 +32,7 @@ export const combinationLogic = ({
     }));
     return { ...item1, topparent: parent_info };
   });
-
+  // console.log(merged);
   const children = combinations_parent.filter(
     (comb_parent) => comb_parent.parent === target_monster.name
   );
