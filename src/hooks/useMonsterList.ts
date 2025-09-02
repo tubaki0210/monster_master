@@ -13,5 +13,4 @@ const useMonsterList = (id_list: number[] | undefined) => {
     parent_error: monstererror,
   };
 };
-const name = 'Taro';
 export default useMonsterList;

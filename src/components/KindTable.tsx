@@ -1,41 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
 
-const kindData = [
-  {
-    path: 'slime',
-    name: 'スライム系',
-  },
-  {
-    path: 'doragon',
-    name: 'ドラゴン系',
-  },
-  {
-    path: 'akuma',
-    name: '悪魔系',
-  },
-  {
-    path: 'busitu',
-    name: '物質系',
-  },
-  {
-    path: 'zombi',
-    name: 'ゾンビ系',
-  },
-  {
-    path: 'maji',
-    name: '魔獣系',
-  },
-  {
-    path: 'sizen',
-    name: '自然系',
-  },
-  {
-    path: 'maou',
-    name: '魔王系',
-  },
-];
-
 const KindTable = () => {
   return (
     <table className="border border-collapse w-1/2">

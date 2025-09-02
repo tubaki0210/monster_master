@@ -5,7 +5,6 @@ import SearchBar from '@/components/SearchBar';
 import Sideber from '@/components/Sideber';
 import { getMonsters } from '@/lib/monster';
 import { NewMonsterType } from '@/type';
-import Link from 'next/link';
 import React from 'react';
 export async function generateStaticParams() {
   const monsterKinds = ['G', 'F', 'E', 'D', 'C', 'B', 'A', 'S', 'X']; // 全ての系統名を取得する関数を実装する必要があります
