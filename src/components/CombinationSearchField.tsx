@@ -43,6 +43,11 @@ const CombinationSearchField = ({
     }
   }, [inputText, filteredMonsters, monsters]);
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputText(e.target.value.replace(/[\s　]+/g, ''));
+    setSelectedIndex(-1);
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'ArrowDown') {
       e.preventDefault();
@@ -68,6 +73,7 @@ const CombinationSearchField = ({
 
   const handleSubmit = async (formData: FormData) => {
     const monsterName = formData.get('monsterName') as string;
+    if (monsterName === '') return;
     const { error, combination_result, parent_result } = await SearchMonster(
       monsterName
     );
@@ -91,10 +97,7 @@ const CombinationSearchField = ({
           value={inputText}
           ref={inputRef}
           name="monsterName"
-          onChange={(e) => {
-            setInputText(e.target.value);
-            setSelectedIndex(-1);
-          }}
+          onChange={(e) => handleInputChange(e)}
           onKeyDown={handleKeyDown}
           placeholder="キングスライム"
         />

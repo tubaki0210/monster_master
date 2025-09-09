@@ -90,13 +90,12 @@ export async function getMonsters(params: getMonstersProps) {
       query = query.eq('name', params.name);
     }
 
-    if (params.ids && params.ids.length > 0) {
+    if (params.ids) {
       query = query.in('monster_id', params.ids);
     }
 
     // 最終的なクエリを実行
     const { data, error } = await query;
-
     if (error) {
       console.error('Supabase Error:', error);
       throw new Error('Failed to fetch monsters.');

@@ -54,7 +54,7 @@ export async function getCombination(params: getCombinationProps) {
       query = query.eq('monster_id', params.monster_id);
     }
 
-    if (params.combination_id && params.combination_id.length > 0) {
+    if (params.combination_id) {
       query = query.in('combination_id', params.combination_id);
     }
 
@@ -65,7 +65,6 @@ export async function getCombination(params: getCombinationProps) {
       console.error('Supabase Error:', error);
       throw new Error('Failed to fetch combinations.');
     }
-
     // 結果を型付けして返す
     return data as CombinationType[];
   } catch (error) {
