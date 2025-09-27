@@ -14,10 +14,10 @@ const Sideber = () => {
       name: '配合検索',
       path: '/monster_combination',
     },
-    {
-      name: 'モンスターマスター',
-      path: '/monster_master',
-    },
+    // {
+    //   name: 'モンスターマスター',
+    //   path: '/monster_master',
+    // },
   ];
 
   return (
