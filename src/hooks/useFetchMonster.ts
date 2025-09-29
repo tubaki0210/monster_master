@@ -3,18 +3,18 @@ import { NewMonsterType, CombinationType, CombinationParentType } from '@/type';
 import { combinationLogic } from '@/lib/combinationLogic';
 
 // 引数として、計算に必要なものをすべて受け取る
-interface Props {
-  name: string;
-  monsters: NewMonsterType[];
-  combinations: CombinationType[];
-  combinations_parent: CombinationParentType[];
-}
-export const useFetchMonster = ({
-  name,
-  monsters,
-  combinations,
-  combinations_parent,
-}: Props) => {
+// interface Props {
+//   name: string;
+//   monsters: NewMonsterType[];
+//   combinations: CombinationType[];
+//   combinations_parent: CombinationParentType[];
+// }
+export const useFetchMonster = (
+  name: string,
+  monsters: NewMonsterType[],
+  combinations: CombinationType[],
+  combinations_parent: CombinationParentType[]
+) => {
   // nameや各種データが変更された時だけ再計算するようにuseMemoで囲む
   const { combination_result, parent_result } = useMemo(() => {
     // データが揃っていなければ、空の結果を返す

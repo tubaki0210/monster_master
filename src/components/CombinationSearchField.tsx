@@ -1,23 +1,31 @@
-import { SearchMonster } from '@/app/actions/actions';
+import { useFetchMonster } from '@/hooks/useFetchMonster';
 import { useMonsterSearch } from '@/hooks/useMonsterSearch';
-import { CombinationList, NewMonsterType } from '@/type';
+import {
+  CombinationList,
+  CombinationParentType,
+  CombinationType,
+  NewMonsterType,
+} from '@/type';
 import React, { useEffect, useRef, useState } from 'react';
 
 interface CombinationSearchFieldProps {
   monsters: NewMonsterType[];
+  combinations: CombinationType[];
+  combination_parent: CombinationParentType[];
   setCombinationResult: (combinationResult: CombinationList[]) => void;
   setParentResult: (parentResult: NewMonsterType[]) => void;
 }
 
 const CombinationSearchField = ({
   monsters,
+  combinations,
+  combination_parent,
   setCombinationResult,
   setParentResult,
 }: CombinationSearchFieldProps) => {
   const [searchresult, setSearchResult] = useState<NewMonsterType[]>([]);
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
   const [inputText, setInputText] = useState('');
-  const [errorMsg, setErrorMsg] = useState('');
   const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const filteredMonsters = useMonsterSearch({
@@ -71,27 +79,32 @@ const CombinationSearchField = ({
     }
   };
 
-  const handleSubmit = async (formData: FormData) => {
-    const monsterName = formData.get('monsterName') as string;
-    if (monsterName === '') return;
-    const { error, combination_result, parent_result } = await SearchMonster(
-      monsterName
-    );
-    if (!error) {
-      setCombinationResult(combination_result!);
-      setParentResult(parent_result!);
-      setErrorMsg('');
-    } else {
-      setErrorMsg(error);
+  const { combination_result, parent_result } = useFetchMonster(
+    inputText,
+    monsters,
+    combinations,
+    combination_parent
+  );
+
+  useEffect(() => {
+    // 結果が存在する場合のみ、親コンポーネントのstateを更新
+    if (combination_result && parent_result) {
+      setCombinationResult(combination_result);
+      setParentResult(parent_result);
     }
-  };
+  }, [
+    combination_result,
+    parent_result,
+    setCombinationResult,
+    setParentResult,
+  ]);
 
   return (
     <div className="relative w-2/3">
       <div className="text-center text-3xl p-2">
         モンスター名を入力してください
       </div>
-      <form action={handleSubmit} className="flex gap-2">
+      <div className="flex gap-2">
         <input
           className="outline-none text-5xl px-2 py-5 flex-3 bg-white border-2 border-gray-300 text-center"
           value={inputText}
@@ -101,10 +114,7 @@ const CombinationSearchField = ({
           onKeyDown={handleKeyDown}
           placeholder="キングスライム"
         />
-        <button type="submit" className="bg-blue-300 flex-1">
-          検索
-        </button>
-      </form>
+      </div>
       <ul className="w-full max-h-25 overflow-y-scroll bg-gray-100 z-30 text-2xl">
         {searchresult.map((monster, index) => (
           <li
@@ -121,7 +131,7 @@ const CombinationSearchField = ({
           </li>
         ))}
       </ul>
-      <p className="text-center text-red-400">{errorMsg}</p>
+      {/* <p className="text-center text-red-400">{errorMsg}</p> */}
     </div>
   );
 };
