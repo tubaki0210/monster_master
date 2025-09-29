@@ -13,15 +13,15 @@ import ParentResult from './ParentResult';
 
 interface MonsterCombinationPageProps {
   monsters: NewMonsterType[];
-  combinations: CombinationType[];
-  combination_parent: CombinationParentType[];
+  // combinations: CombinationType[];
+  // combination_parent: CombinationParentType[];
 }
 
 const MonsterCombinationPage = ({
   monsters,
-  combinations,
-  combination_parent,
-}: MonsterCombinationPageProps) => {
+}: // combinations,
+// combination_parent,
+MonsterCombinationPageProps) => {
   const [combinationResult, setCombinationResult] = useState<CombinationList[]>(
     []
   );
@@ -32,8 +32,8 @@ const MonsterCombinationPage = ({
       <Sideber />
       <CombinationSearchField
         monsters={monsters}
-        combinations={combinations}
-        combination_parent={combination_parent}
+        // combinations={combinations}
+        // combination_parent={combination_parent}
         setCombinationResult={setCombinationResult}
         setParentResult={setParentResult}
       />

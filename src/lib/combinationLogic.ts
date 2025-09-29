@@ -19,9 +19,12 @@ export const combinationLogic = ({
   const combination_id_list = combination_data.map(
     (item) => item.combination_id
   );
+  console.log(combination_id_list);
+  console.log(combinations_parent);
   const combination_parent_data = combinations_parent.filter((comb_parent) =>
     combination_id_list.includes(comb_parent.combination_id)
   );
+  console.log(combination_parent_data);
   const merged = combination_data.map((item1) => {
     const parent_item = combination_parent_data.filter(
       (item) => item.combination_id === item1.combination_id
@@ -32,7 +35,7 @@ export const combinationLogic = ({
     }));
     return { ...item1, topparent: parent_info };
   });
-  // console.log(merged);
+  console.log(merged);
   const children = combinations_parent.filter(
     (comb_parent) => comb_parent.parent === target_monster.name
   );
@@ -40,8 +43,10 @@ export const combinationLogic = ({
   const parent = combinations.filter((comb) =>
     filter.includes(comb.combination_id)
   );
+  console.log(parent);
   filter = parent.map((item) => item.monster_id);
   const p = monsters.filter((monster) => filter.includes(monster.monster_id));
+  console.log(p);
   // 計算結果をオブジェクトとして返す
   return { combination_result: merged, parent_result: p };
 };

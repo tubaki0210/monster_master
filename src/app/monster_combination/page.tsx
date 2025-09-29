@@ -6,15 +6,9 @@ import getCombinationParent from '@/lib/combination_parent';
 
 const Monster_Combination = async () => {
   const monsters = await getMonsters({});
-  const combinations = await getCombination({});
-  const combination_parent = await getCombinationParent({});
-  return (
-    <MonsterCombinationPage
-      monsters={monsters}
-      combinations={combinations}
-      combination_parent={combination_parent}
-    />
-  );
+  // const combinations = await getCombination({})
+  // const combination_parent = await getCombinationParent({})
+  return <MonsterCombinationPage monsters={monsters} />;
 };
 
 export default Monster_Combination;
