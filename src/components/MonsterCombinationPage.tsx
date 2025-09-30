@@ -32,8 +32,6 @@ MonsterCombinationPageProps) => {
       <Sideber />
       <CombinationSearchField
         monsters={monsters}
-        // combinations={combinations}
-        // combination_parent={combination_parent}
         setCombinationResult={setCombinationResult}
         setParentResult={setParentResult}
       />

@@ -10,8 +10,6 @@ import React, { useEffect, useRef, useState } from 'react';
 
 interface CombinationSearchFieldProps {
   monsters: NewMonsterType[];
-  // combinations: CombinationType[];
-  // combination_parent: CombinationParentType[];
   setCombinationResult: (combinationResult: CombinationList[]) => void;
   setParentResult: (parentResult: NewMonsterType[]) => void;
 }
