@@ -1,11 +1,6 @@
 import { SearchMonster } from '@/app/actions/actions';
 import { useMonsterSearch } from '@/hooks/useMonsterSearch';
-import {
-  CombinationList,
-  CombinationParentType,
-  CombinationType,
-  NewMonsterType,
-} from '@/type';
+import { CombinationList, NewMonsterType } from '@/type';
 import React, { useEffect, useRef, useState } from 'react';
 
 interface CombinationSearchFieldProps {
@@ -86,7 +81,6 @@ const CombinationSearchField = ({
       setCombinationResult(combination_result!);
       setParentResult(parent_result!);
       setErrorMsg('');
-      console.log('dd');
     } else {
       setErrorMsg(error);
     }

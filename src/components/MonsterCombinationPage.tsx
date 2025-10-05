@@ -1,10 +1,5 @@
 'use client';
-import {
-  CombinationList,
-  CombinationParentType,
-  CombinationType,
-  NewMonsterType,
-} from '@/type';
+import { CombinationList, NewMonsterType } from '@/type';
 import React, { useState } from 'react';
 import CombinationItem from '@/components/CombinationItem';
 import Sideber from '@/components/Sideber';
@@ -13,15 +8,9 @@ import ParentResult from './ParentResult';
 
 interface MonsterCombinationPageProps {
   monsters: NewMonsterType[];
-  // combinations: CombinationType[];
-  // combination_parent: CombinationParentType[];
 }
 
-const MonsterCombinationPage = ({
-  monsters,
-}: // combinations,
-// combination_parent,
-MonsterCombinationPageProps) => {
+const MonsterCombinationPage = ({ monsters }: MonsterCombinationPageProps) => {
   const [combinationResult, setCombinationResult] = useState<CombinationList[]>(
     []
   );
