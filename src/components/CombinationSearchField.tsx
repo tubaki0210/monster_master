@@ -1,7 +1,7 @@
 import { SearchMonster } from '@/app/actions/actions';
 import { useMonsterSearch } from '@/hooks/useMonsterSearch';
 import { CombinationList, NewMonsterType } from '@/type';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useTransition } from 'react';
 
 interface CombinationSearchFieldProps {
   monsters: NewMonsterType[];
@@ -18,6 +18,7 @@ const CombinationSearchField = ({
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
   const [inputText, setInputText] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
+  const [isPending, startTransition] = useTransition();
   const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const filteredMonsters = useMonsterSearch({
@@ -74,16 +75,18 @@ const CombinationSearchField = ({
   const handleSubmit = async (formData: FormData) => {
     const monsterName = formData.get('monsterName') as string;
     if (monsterName === '') return;
-    const { error, combination_result, parent_result } = await SearchMonster(
-      monsterName
-    );
-    if (!error) {
-      setCombinationResult(combination_result!);
-      setParentResult(parent_result!);
-      setErrorMsg('');
-    } else {
-      setErrorMsg(error);
-    }
+    startTransition(async () => {
+      const { error, combination_result, parent_result } = await SearchMonster(
+        monsterName
+      );
+      if (!error) {
+        setCombinationResult(combination_result!);
+        setParentResult(parent_result!);
+        setErrorMsg('');
+      } else {
+        setErrorMsg(error);
+      }
+    });
   };
 
   return (
@@ -101,8 +104,12 @@ const CombinationSearchField = ({
           onKeyDown={handleKeyDown}
           placeholder="キングスライム"
         />
-        <button type="submit" className="bg-blue-300 flex-1">
-          検索
+        <button
+          type="submit"
+          className="bg-blue-300 flex-1"
+          disabled={isPending}
+        >
+          {isPending ? '検索中' : '検索'}
         </button>
       </form>
       <ul className="w-full max-h-25 overflow-y-scroll bg-gray-100 z-30 text-2xl">
