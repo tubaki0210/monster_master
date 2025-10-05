@@ -86,6 +86,7 @@ const CombinationSearchField = ({
       setCombinationResult(combination_result!);
       setParentResult(parent_result!);
       setErrorMsg('');
+      console.log('dd');
     } else {
       setErrorMsg(error);
     }
