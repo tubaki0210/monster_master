@@ -12,7 +12,7 @@ const AllmonsterPage = async () => {
   return (
     <div className="container m-auto flex flex-col justify-center items-center mt-10 mb-10 ">
       <Sideber />
-      <SearchBar />
+      <SearchBar monsters={displayedMonsters} />
       <KindTable />
       <RankTable />
       <div className="w-1/2 mt-5">

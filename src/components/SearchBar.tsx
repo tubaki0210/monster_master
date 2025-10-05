@@ -1,15 +1,18 @@
-"use client";
-import useGetAllMonster from "@/hooks/useGetAllMonster";
-import { useMonsterSearch } from "@/hooks/useMonsterSearch";
-import { NewMonsterType } from "@/type";
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+'use client';
+import { useMonsterSearch } from '@/hooks/useMonsterSearch';
+import { NewMonsterType } from '@/type';
+import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
 
-const SearchBar = () => {
+interface SearchBarProps {
+  monsters: NewMonsterType[];
+}
+
+const SearchBar = ({ monsters }: SearchBarProps) => {
   const router = useRouter();
-  const { monsters, monsterError } = useGetAllMonster();
-  const [text, setText] = useState<string>("");
-  const [alertmsg, setAlertMsg] = useState<string>("");
+  // const { monsters, monsterError } = useGetAllMonster();
+  const [text, setText] = useState<string>('');
+  const [alertmsg, setAlertMsg] = useState<string>('');
   const [isvisible, setIsvisible] = useState<boolean>(true);
 
   const searchResults = useMonsterSearch({ text: text, monsters: monsters });
@@ -20,19 +23,16 @@ const SearchBar = () => {
       (monster: NewMonsterType) => monster.name === text
     );
     if (search.length !== 0) {
-      setAlertMsg("");
+      setAlertMsg('');
       router.push(`/monster/${search?.[0].monster_id}`);
-    } else if (text === "") setAlertMsg("モンスター名を入力してください");
-    else setAlertMsg("正しいモンスター名を入力してください");
+    } else if (text === '') setAlertMsg('モンスター名を入力してください');
+    else setAlertMsg('正しいモンスター名を入力してください');
   };
 
   const handleSetText = (name: string) => {
     setText(name);
     setIsvisible(false);
   };
-
-  if (monsterError) return <div>エラーです</div>;
-  if (!monsters) return <div>読み込み中...</div>;
 
   return (
     <div className="w-1/2 mb-20">

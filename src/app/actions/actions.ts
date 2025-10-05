@@ -1,3 +1,4 @@
+'use server';
 import { getMonsters } from '@/lib/monster';
 import { getMonseterCombParent } from '@/lib/MonsterCombParent';
 

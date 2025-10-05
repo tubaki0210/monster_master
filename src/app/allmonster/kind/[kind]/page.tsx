@@ -27,10 +27,11 @@ type KindPageProps = {
 const KindPage = async ({ params }: KindPageProps) => {
   const { kind } = await params;
   const displayedMonsters = await getMonsters({ kind: kind });
+  const allMonster = await getMonsters({});
   return (
     <div className="container m-auto flex flex-col justify-center items-center mt-10 mb-10 ">
       <Sideber />
-      <SearchBar />
+      <SearchBar monsters={allMonster} />
       <KindTable />
       <RankTable />
       <div className="w-1/2 mt-5">

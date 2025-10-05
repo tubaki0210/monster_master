@@ -19,10 +19,11 @@ const RankPage = async ({ params }: RankPageProps) => {
   // 分割代入
   const { rank } = await params;
   const displayedMonsters = await getMonsters({ rank: rank });
+  const allMonster = await getMonsters({});
   return (
     <div className="container m-auto flex flex-col justify-center items-center mt-10 mb-10 ">
       <Sideber />
-      <SearchBar />
+      <SearchBar monsters={allMonster} />
       <KindTable />
       <RankTable />
       <div className="w-1/2 mt-5">
