@@ -18,9 +18,9 @@ const CombinationSearchField = ({
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
   const [inputText, setInputText] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
-  const [isPending, startTransition] = useTransition();
   const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [isPending, startTransition] = useTransition();
   const filteredMonsters = useMonsterSearch({
     text: inputText,
     monsters: monsters,
@@ -35,9 +35,7 @@ const CombinationSearchField = ({
   }, [selectedIndex]);
 
   useEffect(() => {
-    if (
-      monsters?.some((monster: NewMonsterType) => monster.name === inputText)
-    ) {
+    if (monsters.some((monster) => monster.name === inputText)) {
       setSearchResult([]);
     } else {
       setSearchResult(filteredMonsters);

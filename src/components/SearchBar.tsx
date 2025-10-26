@@ -9,29 +9,21 @@ interface SearchBarProps {
 }
 
 const SearchBar = ({ monsters }: SearchBarProps) => {
-  const router = useRouter();
-  // const { monsters, monsterError } = useGetAllMonster();
   const [text, setText] = useState<string>('');
   const [alertmsg, setAlertMsg] = useState<string>('');
-  const [isvisible, setIsvisible] = useState<boolean>(true);
+  const router = useRouter();
 
   const searchResults = useMonsterSearch({ text: text, monsters: monsters });
 
   const SearchMonster = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const search: NewMonsterType[] = searchResults.filter(
-      (monster: NewMonsterType) => monster.name === text
-    );
+    const search = searchResults.filter((monster) => monster.name === text);
     if (search.length !== 0) {
       setAlertMsg('');
       router.push(`/monster/${search?.[0].monster_id}`);
-    } else if (text === '') setAlertMsg('モンスター名を入力してください');
-    else setAlertMsg('正しいモンスター名を入力してください');
-  };
-
-  const handleSetText = (name: string) => {
-    setText(name);
-    setIsvisible(false);
+    } else if (text === '') {
+      setAlertMsg('モンスター名を入力してください');
+    } else setAlertMsg('正しいモンスター名を入力してください');
   };
 
   return (
@@ -43,7 +35,6 @@ const SearchBar = ({ monsters }: SearchBarProps) => {
           value={text}
           onChange={(e) => {
             setText(e.target.value);
-            setIsvisible(true);
           }}
           placeholder="検索したいモンスター名を入力してください"
         />
@@ -54,19 +45,17 @@ const SearchBar = ({ monsters }: SearchBarProps) => {
           探す
         </button>
       </div>
-      {isvisible && (
-        <ul className="w-full max-h-25 overflow-y-scroll bg-gray-100 z-30 text-2xl">
-          {searchResults?.map((monster) => (
-            <li
-              onClick={() => handleSetText(monster.name)}
-              key={monster.monster_id}
-              className="py-0.5 hover:bg-gray-300 cursor-pointer"
-            >
-              {monster.name}
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul className="w-full max-h-25 overflow-y-scroll bg-gray-100 z-30 text-2xl">
+        {searchResults.map((monster) => (
+          <li
+            onClick={() => setText(monster.name)}
+            key={monster.monster_id}
+            className="py-0.5 hover:bg-gray-300 cursor-pointer"
+          >
+            {monster.name}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
