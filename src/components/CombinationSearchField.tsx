@@ -35,11 +35,14 @@ const CombinationSearchField = ({
   }, [selectedIndex]);
 
   useEffect(() => {
-    if (monsters.some((monster) => monster.name === inputText)) {
-      setSearchResult([]);
-    } else {
-      setSearchResult(filteredMonsters);
-    }
+    const timer = setTimeout(() => {
+      if (monsters.some((monster) => monster.name === inputText)) {
+        setSearchResult([]);
+      } else {
+        setSearchResult(filteredMonsters);
+      }
+    }, 500);
+    return () => clearTimeout(timer);
   }, [inputText, filteredMonsters, monsters]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,9 +77,8 @@ const CombinationSearchField = ({
     const monsterName = formData.get('monsterName') as string;
     if (monsterName === '') return;
     startTransition(async () => {
-      const { error, combination_result, parent_result } = await SearchMonster(
-        monsterName
-      );
+      const { error, combination_result, parent_result } =
+        await SearchMonster(monsterName);
       if (!error) {
         setCombinationResult(combination_result!);
         setParentResult(parent_result!);
